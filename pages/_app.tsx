@@ -1,8 +1,20 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { ApolloProvider } from "@apollo/client";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+import { AppProvider } from "@/state/context";
+import client from "@/graphql/client";
 
-export default MyApp
+import "../styles/globals.css";
+
+import type { AppProps } from "next/app";
+
+const App = ({ Component, pageProps }: AppProps) => {
+  return (
+    <ApolloProvider client={client}>
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
+    </ApolloProvider>
+  );
+};
+
+export default App;
