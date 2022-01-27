@@ -1,15 +1,29 @@
+import Head from "next/head";
+import { DefaultTheme, ThemeProvider } from "styled-components";
+
 import If from "@/components/if";
+import PokemonDetails from "@/components/pokemondetails";
 import client from "@/graphql/client";
 import { GET_POKEMON } from "@/graphql/query";
 import useMounted from "@/hooks/useMounted";
+import { PokemonData } from "@/types/pokemon";
 
-const Pokemon = ({ pokemon }: any) => {
+import { capitalizeFirstLetter } from "@/utils/functions";
+
+type PokemonProps = {
+  pokemon: PokemonData;
+};
+
+const Pokemon = ({ pokemon }: PokemonProps) => {
   const mounted = useMounted();
+
   return (
     <>
-      {/* Ensure the nodes are rendered once mounted */}
+      <Head>
+        <title>{capitalizeFirstLetter(pokemon.name)}</title>
+      </Head>
       <If condition={mounted}>
-        <h1>{`Name: ${pokemon.name}`}</h1>
+        <PokemonDetails pokemon={pokemon} />
       </If>
     </>
   );

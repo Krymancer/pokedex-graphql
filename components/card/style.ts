@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
+import {ThickBorder} from '@/styles/global';
+
 type Props = {
   color: string;
 }
 
-export const Container = styled.div<Props>`
+export const Container = styled(ThickBorder)<Props>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,17 +17,7 @@ export const Container = styled.div<Props>`
 
   background-color: ${(props) => props.color};
   margin: 1em;
-
-  transform: skew(-5deg);
-  transition: all 0.25s;
-  box-shadow: 9px 10px 0 var(--light-blue);
-
   cursor: pointer;
-
-  &:hover {
-    box-shadow: none;
-    transform: skew(-5deg) translateX(5px);
-  }
 
   h1 {
     margin: 1em;

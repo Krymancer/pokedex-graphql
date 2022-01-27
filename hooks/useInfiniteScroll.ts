@@ -10,7 +10,7 @@ import { PER_PAGE, VARIABLES as variables } from '@/graphql/constants';
  * @param {Function} callback The callback function to execute once reach the bottom of the viewport
  */
 const useInfiniteScroll = (loading : Boolean, callback: Function) => {
-  let perPage = PER_PAGE;
+  let perPage = 0;
 
   const scrollListener = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;

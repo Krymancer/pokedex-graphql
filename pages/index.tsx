@@ -1,4 +1,5 @@
-import type { NextPage } from "next";
+import { createContext, useContext, useEffect, useState } from "react";
+import Head from "next/head";
 
 import usePokemons from "@/hooks/usePokemons";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
@@ -14,6 +15,9 @@ type HomeProps = {
   initialPokemons: Pokemon[];
 };
 
+import { Context } from "./_app";
+import { DefaultTheme } from "styled-components";
+
 const Home = ({ initialPokemons }: HomeProps) => {
   // Set initial pokemons data from the server
   // and fetch another pokemons data in the client
@@ -21,8 +25,22 @@ const Home = ({ initialPokemons }: HomeProps) => {
   const { loading, error, pokemons, getPokemons } = data;
   useInfiniteScroll(loading, getPokemons);
 
+  const { theme, setTheme } = useContext(Context);
+
+  useEffect(() => {
+    console.log(theme);
+    const newTheme: DefaultTheme = {
+      backgroundColor: "#fff",
+    };
+
+    setTheme(newTheme);
+  }, []);
+
   return (
     <>
+      <Head>
+        <title>Pokedex</title>
+      </Head>
       <If condition={typeof error !== "undefined"}>
         <h1>{`Error! ${error?.message}`}</h1>
       </If>

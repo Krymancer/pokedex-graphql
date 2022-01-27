@@ -1,5 +1,5 @@
 export interface Pokemon {
-  id: string;
+  id: number;
   name: string;
   dreamworld: string;
 };
@@ -30,9 +30,10 @@ interface Type {
 };
 
 export interface PokemonData {
-  id: string;
+  id: number;
   name: string;
   height: number;
+  image?: string;
   weight: number;
   base_experience: number;
   abilities: Abilities[];
