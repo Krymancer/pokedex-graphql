@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { ThickBorder } from "@/styles/global";
+
 export const Container = styled.div`
   margin: 1em;
   display: flex;
@@ -7,6 +9,9 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const DropdownContainer = styled(ThickBorder)`
+  display: flex;
+`;
 
 export const Links = styled.div`
   display: flex;

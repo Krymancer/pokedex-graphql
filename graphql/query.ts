@@ -25,6 +25,17 @@ query getType($name: String!) {
 }
 `;
 
+export const GET_TYPES = gql`
+query types {
+  types {
+    results {
+      url
+      name
+    }
+  }
+}
+`;
+
 export const GET_POKEMON = gql`
   query pokemon($name: String!) {
     pokemon(name: $name) {
