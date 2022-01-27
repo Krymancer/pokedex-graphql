@@ -21,6 +21,8 @@ const Card = ({ id, name, image }: CardProps) => {
     variables: { name },
   });
 
+  console.log(data);
+
   const flag = id % 3;
   const color = useRandomColor(flag);
 
@@ -40,9 +42,9 @@ const Card = ({ id, name, image }: CardProps) => {
             <Image src={image} alt={name} width={100} height={100} />
           </Circle>
           <h1>{name.toUpperCase()}</h1>
-          <If condition={!loading && !error}>
+          <If condition={!loading}>
             <Types>
-              {data.pokemon?.types
+              {data?.pokemon?.types
                 .map((type: Type) => type.type.name)
                 .join(", ")
                 .toUpperCase()}

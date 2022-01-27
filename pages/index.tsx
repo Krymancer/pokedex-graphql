@@ -34,7 +34,7 @@ const Home = ({ initialPokemons }: HomeProps) => {
     };
 
     setTheme(newTheme);
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <>
