@@ -25,4 +25,4 @@ Ao clicar no pokemon deve exibir as informações e o usuário poderá adicionar
 
 ## Deploy
 
-[Acesse o deploy](https://pokedex-graphql-4lidlh1eo-krymancer.vercel.app/)
+[Acesse o deploy](https://pokedex-graphql.vercel.app/)
