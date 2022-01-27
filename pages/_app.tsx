@@ -1,27 +1,23 @@
 import { ApolloProvider } from "@apollo/client";
+import { DefaultTheme, ThemeProvider } from "styled-components";
+import { useState, createContext } from "react";
+import type { AppProps } from "next/app";
+
+import "@/styles/globals.css";
 
 import { AppProvider } from "@/state/context";
 import client from "@/graphql/client";
+import GlobalStyles, { defaultTheme } from "@/styles/global";
 
-import { DefaultTheme, ThemeProvider } from "styled-components";
-
-import "../styles/globals.css";
-import GlobalStyles from "../styles/global";
-
-import type { AppProps } from "next/app";
-import { useState, createContext } from "react";
+import { wrapper } from "@/state/store";
 
 export const Context = createContext({
-  theme: {
-    backgroundColor: "red",
-  },
+  theme: defaultTheme,
   setTheme: (value: DefaultTheme) => {},
 });
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const [theme, setTheme] = useState<DefaultTheme>({
-    backgroundColor: "#fff",
-  });
+  const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,4 +33,4 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default App;
+export default wrapper.withRedux(App);

@@ -6,6 +6,10 @@ type Props = {
   color: string;
 }
 
+export const Types = styled.div`
+  margin-bottom: 1em;
+`;
+
 export const Container = styled(ThickBorder)<Props>`
   display: flex;
   flex-direction: column;

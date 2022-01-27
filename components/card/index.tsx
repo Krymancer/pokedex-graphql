@@ -1,9 +1,14 @@
-import useRandomColor from "@/hooks/useRandomColor";
 import Image from "next/image";
 import Link from "next/link";
-import If from "../if";
+import { useQuery } from "@apollo/client";
 
-import { Container, Circle } from "./style";
+import useRandomColor from "@/hooks/useRandomColor";
+import If from "@/components/if";
+import { GET_TYPE } from "@/graphql/query";
+
+import { Type } from "@/types/pokemon";
+
+import { Container, Circle, Types } from "./style";
 
 type CardProps = {
   id: number;
@@ -12,6 +17,10 @@ type CardProps = {
 };
 
 const Card = ({ id, name, image }: CardProps) => {
+  const { data, loading, error } = useQuery(GET_TYPE, {
+    variables: { name },
+  });
+
   const flag = id % 3;
   const color = useRandomColor(flag);
 
@@ -31,6 +40,14 @@ const Card = ({ id, name, image }: CardProps) => {
             <Image src={image} alt={name} width={100} height={100} />
           </Circle>
           <h1>{name.toUpperCase()}</h1>
+          <If condition={!loading && !error}>
+            <Types>
+              {data.pokemon?.types
+                .map((type: Type) => type.type.name)
+                .join(", ")
+                .toUpperCase()}
+            </Types>
+          </If>
         </Container>
       </Link>
     </If>

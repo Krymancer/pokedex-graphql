@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 
 import { createGlobalStyle } from "styled-components";
+
+export const defaultTheme : DefaultTheme =  {
+    backgroundColor: "#fff",
+}
 
 export default createGlobalStyle`
   * {

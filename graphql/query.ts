@@ -13,6 +13,18 @@ export const GET_POKEMONS = gql`
   }
 `;
 
+export const GET_TYPE = gql`
+query getType($name: String!) {
+  pokemon(name: $name) {
+    types {
+      type {
+        name
+      }
+    }
+  }
+}
+`;
+
 export const GET_POKEMON = gql`
   query pokemon($name: String!) {
     pokemon(name: $name) {
