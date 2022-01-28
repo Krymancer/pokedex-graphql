@@ -7,6 +7,8 @@ import { Context } from "./_app";
 import { DefaultTheme } from "styled-components";
 import { connect } from "react-redux";
 import Graph from "@/components/graph";
+import If from "@/components/if";
+import TextBox from "@/components/textbox";
 
 const Collection = (props: any) => {
   const { theme, setTheme } = useContext(Context);
@@ -24,7 +26,12 @@ const Collection = (props: any) => {
       <Head>
         <title>My Pokemons</title>
       </Head>
-      <PokemonList pokemons={props.ownedPokemons} />
+      <If condition={props.ownedPokemons?.length >= 0}>
+        <PokemonList pokemons={props.ownedPokemons} />
+      </If>
+      <If condition={props.ownedPokemons?.length <= 0}>
+        <TextBox text="No pokemons finded, catch one!" />
+      </If>
       <Graph pokemons={props.ownedPokemons} />
     </>
   );

@@ -56,6 +56,10 @@ const Graph = ({ pokemons }: Props) => {
     }
   }, [maxType]); // eslint-disable-line
 
+  if (pokemons?.length <= 0) {
+    return null;
+  }
+
   return (
     <If condition={pokemons != undefined}>
       <Container>
