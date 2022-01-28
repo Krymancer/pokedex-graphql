@@ -23,6 +23,15 @@ Ao clicar no pokemon deve exibir as informações e o usuário poderá adicionar
 - Redux saga
 - Hospedar em alguma url pública
 
+## Implementation
+
+Tecnologias usadas
+
+- NextJS
+- Styled Components
+- Redux Saga
+- Apollo Graphql Client
+
 ## Deploy
 
 [Acesse o deploy](https://pokedex-graphql.vercel.app/)
