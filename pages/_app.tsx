@@ -14,17 +14,22 @@ export const Context = createContext({
   setTheme: (value: DefaultTheme) => {},
   typeFilter: "all",
   setTypeFilter: (value: string) => {},
+  search: "",
+  setSearch: (value: string) => {},
 });
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
   const [typeFilter, setTypeFilter] = useState("all");
+  const [search, setSearch] = useState("");
 
   const ctx = {
     theme,
     setTheme,
     typeFilter,
     setTypeFilter,
+    search,
+    setSearch,
   };
 
   return (

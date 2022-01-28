@@ -26,7 +26,7 @@ const Card = ({ id, name, image }: CardProps) => {
   const flag = id % 3;
   const color = useRandomColor(flag);
 
-  const { typeFilter } = useContext(Context);
+  const { typeFilter, search } = useContext(Context);
 
   if (!loading) {
     if (typeFilter !== "all") {
@@ -38,31 +38,33 @@ const Card = ({ id, name, image }: CardProps) => {
   }
 
   return (
-    <If condition={typeof { name, image } === "object"}>
-      <Link
-        href={{
-          pathname: "pokemon/[name]",
-          query: { image },
-        }}
-        as={`/pokemon/${name}`}
-        passHref={true}
-      >
-        <Container color={color.dark}>
-          <p>{`#${id}`}</p>
-          <Circle color={color.light}>
-            <Image src={image} alt={name} width={100} height={100} />
-          </Circle>
-          <h1>{name.toUpperCase()}</h1>
-          <If condition={!loading}>
-            <Types>
-              {data?.pokemon?.types
-                .map((type: Type) => type.type.name)
-                .join(", ")
-                .toUpperCase()}
-            </Types>
-          </If>
-        </Container>
-      </Link>
+    <If condition={name.toLowerCase().includes(search.toLowerCase())}>
+      <If condition={typeof { name, image } === "object"}>
+        <Link
+          href={{
+            pathname: "pokemon/[name]",
+            query: { image },
+          }}
+          as={`/pokemon/${name}`}
+          passHref={true}
+        >
+          <Container color={color.dark}>
+            <p>{`#${id}`}</p>
+            <Circle color={color.light}>
+              <Image src={image} alt={name} width={100} height={100} />
+            </Circle>
+            <h1>{name.toUpperCase()}</h1>
+            <If condition={!loading}>
+              <Types>
+                {data?.pokemon?.types
+                  .map((type: Type) => type.type.name)
+                  .join(", ")
+                  .toUpperCase()}
+              </Types>
+            </If>
+          </Container>
+        </Link>
+      </If>
     </If>
   );
 };

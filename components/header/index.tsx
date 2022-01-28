@@ -21,16 +21,20 @@ import { useContext } from "react";
 const Header = () => {
   const { data, loading, error } = useQuery(GET_TYPES, {});
 
-  const { typeFilter, setTypeFilter } = useContext(Context);
+  const { typeFilter, setTypeFilter, search, setSearch } = useContext(Context);
 
   const handleChange = (e: any) => {
     setTypeFilter(e.target.value);
   };
 
+  const handleSearch = (e: any) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <Container>
       <div>
-        <Input placeholder="Search..." />
+        <Input placeholder="Search..." onChange={handleSearch} value={search} />
       </div>
       <Links>
         <DropdownContainer>
