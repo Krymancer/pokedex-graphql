@@ -4,6 +4,13 @@ export interface Pokemon {
   dreamworld: string;
 };
 
+export interface OwnedPokemon {
+  id: number;
+  name: string;
+  dreamworld: string;
+  nickname?: string;
+};
+
 interface Abilities {
   ability: {
     name: string;

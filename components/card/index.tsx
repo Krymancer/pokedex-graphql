@@ -9,6 +9,8 @@ import { GET_TYPE } from "@/graphql/query";
 import { Type } from "@/types/pokemon";
 
 import { Container, Circle, Types } from "./style";
+import { useContext } from "react";
+import { Context } from "pages/_app";
 
 type CardProps = {
   id: number;
@@ -21,10 +23,19 @@ const Card = ({ id, name, image }: CardProps) => {
     variables: { name },
   });
 
-  console.log(data);
-
   const flag = id % 3;
   const color = useRandomColor(flag);
+
+  const { typeFilter } = useContext(Context);
+
+  if (!loading) {
+    if (typeFilter !== "all") {
+      const types = data.pokemon.types.map((type: any) => type.type.name);
+      if (!types.includes(typeFilter)) {
+        return null;
+      }
+    }
+  }
 
   return (
     <If condition={typeof { name, image } === "object"}>

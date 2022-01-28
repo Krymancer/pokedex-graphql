@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import {ThickBorderNoHover} from '@/styles/global';
+import {ThickBorderNoHover, ThickBorder} from '@/styles/global';
 
 type ContainerProps = {
   backgroundColor: string;
@@ -54,5 +54,24 @@ export const Moves = styled.div`
   div {
     overflow-y: scroll;
     max-height: 30em;
+  }
+`;
+
+export const CatchButton = styled(ThickBorder)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1em;
+  background-color: #fff;
+
+  margin-top: 1em;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  svg {
+    margin-right: 1em;
   }
 `;

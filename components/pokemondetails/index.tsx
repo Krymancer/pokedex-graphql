@@ -9,14 +9,17 @@ import {
   InfoContainer,
   Moves,
   PokemonTitle,
+  CatchButton,
 } from "./style";
 
 import Header from "@/components/header";
 import { capitalizeFirstLetter } from "@/utils/functions";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Context } from "../../pages/_app";
 import { DefaultTheme } from "styled-components";
+import Pokeball from "../icons/pokeball";
+import { savePokemonToStorage } from "@/state/persist";
 
 type PokemonDetailsProps = {
   pokemon: PokemonData;
@@ -45,13 +48,30 @@ const PokemonDetails = ({ pokemon }: PokemonDetailsProps) => {
   const { theme, setTheme } = useContext(Context);
 
   useEffect(() => {
-    console.log(theme);
     const newTheme: DefaultTheme = {
       backgroundColor: light,
     };
 
     setTheme(newTheme);
   }, []); // eslint-disable-line
+
+  const [catched, setCatched] = useState(false);
+
+  const handleClick = () => {
+    if (!catched) {
+      setCatched(true);
+
+      const typesData = types.map((type) => type.type.name);
+      const catchPokemon = {
+        id,
+        name,
+        dreamworld: profileImage,
+        types: typesData,
+      };
+
+      savePokemonToStorage(catchPokemon);
+    }
+  };
 
   return (
     <>
@@ -72,6 +92,11 @@ const PokemonDetails = ({ pokemon }: PokemonDetailsProps) => {
             />
             <Item title="Height" text={`${height}"`} />
             <Item title="Weight" text={`${weight} lbs`} />
+
+            <CatchButton onClick={handleClick}>
+              <Pokeball size={2} />
+              {catched ? "Catched!" : "Catch"}
+            </CatchButton>
           </div>
         </Stats>
         <InfoContainer>

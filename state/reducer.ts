@@ -1,44 +1,54 @@
-// Internal modules
-import {
-  ADOPT_POKEMON,
-  CATCH_POKEMON,
-  CHECK_AMP,
-  RELEASE_POKEMON,
-  SELECT_POKEMON,
-  TOGGLE_DIALOG,
-} from '@/state/action-types';
+import { actionTypes } from './actions'
+import { HYDRATE } from 'next-redux-wrapper'
 
-const appReducer = (state : any, action : any) => {
+const initialState = {
+  ownedPokemons: []
+}
+
+function reducer(state :  any, action : any) {
   switch (action.type) {
-    case ADOPT_POKEMON: {
+    case HYDRATE: {
+      return { ...state, ...action.payload }
+    }
+
+    case actionTypes.FAILURE:
       return {
         ...state,
-        ownedPokemons: [...state.ownedPokemons, action.payload],
-      };
-    }
-    case CATCH_POKEMON: {
-      return { ...state, isCatched: action.payload };
-    }
-    case CHECK_AMP: {
-      return { ...state, isAmp: action.payload };
-    }
-    case RELEASE_POKEMON: {
-      const pokemons = state.ownedPokemons.filter(
-        (pokemon : any) => pokemon.nickname !== action.payload.nickname
-      );
+        ...{ error: action.error },
+      }
 
-      return { ...state, ownedPokemons: pokemons };
-    }
-    case SELECT_POKEMON: {
-      return { ...state, selectedPokemon: action.payload };
-    }
-    case TOGGLE_DIALOG: {
-      return { ...state, isDialogOpen: !state.isDialogOpen };
-    }
-    default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
-    }
+    case actionTypes.INCREMENT:
+      return {
+        ...state,
+        ...{ count: state.count + 1 },
+      }
+
+    case actionTypes.DECREMENT:
+      return {
+        ...state,
+        ...{ count: state.count - 1 },
+      }
+
+    case actionTypes.RESET:
+      return {
+        ...state,
+      }
+
+    case actionTypes.LOAD_DATA_SUCCESS:
+      return {
+        ...state,
+        ownedPokemons : action.data,
+      }
+
+    case actionTypes.TICK_CLOCK:
+      return {
+        ...state,
+        ...{ lastUpdate: action.ts, light: !!action.light },
+      }
+
+    default:
+      return state
   }
-};
+}
 
-export default appReducer;
+export default reducer

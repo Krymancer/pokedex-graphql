@@ -28,7 +28,6 @@ const Home = ({ initialPokemons }: HomeProps) => {
   const { theme, setTheme } = useContext(Context);
 
   useEffect(() => {
-    console.log(theme);
     const newTheme: DefaultTheme = {
       backgroundColor: "#fff",
     };

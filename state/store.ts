@@ -1,25 +1,21 @@
-import {createStore, AnyAction, Store} from 'redux';
-import {createWrapper, Context, HYDRATE} from 'next-redux-wrapper';
+import { applyMiddleware, createStore } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import { createWrapper } from 'next-redux-wrapper'
 
-export interface State {
-  tick: string;
+import rootReducer from './reducer'
+import rootSaga from './saga'
+
+const bindMiddleware = (middleware : any) => {
+  return applyMiddleware(...middleware)
 }
 
-// create your reducer
-const reducer = (state: State = {tick: 'init'}, action: AnyAction) => {
-  switch (action.type) {
-    case HYDRATE:
-      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      return {...state, ...action.payload};
-    case 'TICK':
-      return {...state, tick: action.payload};
-    default:
-      return state;
-  }
-};
+export const makeStore = (context : any) => {
+  const sagaMiddleware = createSagaMiddleware()
+  const store : any = createStore(rootReducer, bindMiddleware([sagaMiddleware]))
 
-// create a makeStore function
-const makeStore = (context: Context) => createStore(reducer);
+  store.sagaTask = sagaMiddleware.run(rootSaga)
 
-// export an assembled wrapper
-export const wrapper = createWrapper<Store<State>>(makeStore, {debug: true});
+  return store
+}
+
+export const wrapper = createWrapper(makeStore, { debug: true })
